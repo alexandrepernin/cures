@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Table } from "reactstrap";
+import React, {Component} from "react";
+import {Table} from "reactstrap";
 
 class CuresList extends Component {
   render() {
@@ -19,7 +19,7 @@ class CuresList extends Component {
               </td>
             </tr>
           ) : (
-            cures.map(cure => (
+            cures.map((cure) => (
               <tr key={cure.pk}>
                 <td>{cure.name}</td>
               </tr>
