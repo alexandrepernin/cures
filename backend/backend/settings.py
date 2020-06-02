@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # Django Rest Framework
     'rest_framework',
     'corsheaders',
+    # Cures app
+    'cures',
     # Django Extensions (including graph_models)
     'django_extensions',
 ]
