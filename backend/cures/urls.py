@@ -5,6 +5,7 @@ from .views import current_user, UserList
 
 
 urlpatterns = [
+    re_path(r'^api/cures/$', views.cures_list),
     # Function-based view => just give the function's name.
     path('cures/current_user/', current_user),
     # Class-based view => specify as_view()

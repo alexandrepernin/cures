@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
-
+from .models import *
 
 #For SIGN IN
 class UserSerializer(serializers.ModelSerializer):
@@ -39,3 +39,12 @@ class UserSerializerWithToken(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('token', 'username', 'password')
+
+# CURES
+class CureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        #Indicate which model the serializer will be representing
+        model = Cure
+        #Indicate which field from that model we want the serializer to include
+        fields = ('pk', 'name', 'validated')

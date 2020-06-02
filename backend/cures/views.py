@@ -7,6 +7,7 @@ from rest_framework import permissions, status
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from .serializers import *
+from .models import Cure
 
 # Create your views here.
 # 3 methods to create views:
@@ -43,3 +44,18 @@ class UserList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# CURES
+@api_view(['GET'])
+@authentication_classes([])
+@permission_classes([])
+# Function based view
+def cures_list(request):
+    try:
+        name = request.GET['name']
+        data = Cure.objects.filter(name=name)
+    except:
+        data = Cure.objects.all()
+    finally:
+        serializer = CureSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
