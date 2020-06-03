@@ -41,6 +41,7 @@ class UserList(APIView):
             #If valid save the new user object. And send back that user's data with 201 status code.
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # e.g. Returns error message if username already exists
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # CURES

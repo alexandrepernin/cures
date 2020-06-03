@@ -9,5 +9,5 @@ urlpatterns = [
     # Function-based view => just give the function's name.
     path('cures/current_user/', current_user),
     # Class-based view => specify as_view()
-    path('cures/users/', UserList.as_view()),
+    path('cures/signup/', UserList.as_view()),
 ]

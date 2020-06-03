@@ -8,10 +8,10 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: null,
+      displayed_form: "",
       logged_in: localStorage.getItem("token") ? true : false,
-      username: null,
-      message: null,
+      username: "",
+      message: "",
     };
   }
 
@@ -32,62 +32,79 @@ class Register extends Component {
   // POST request to obtain_jwt_token view.
   handleLogin = (e, data) => {
     e.preventDefault();
-    fetch("http://localhost:8000/token-auth/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then(function (res) {
-        return res.json();
+    try {
+      fetch("http://localhost:8000/token-auth/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       })
-      .then((json) => {
-        if ("user" in json) {
-          localStorage.setItem("token", json.token);
-          this.setState({
-            logged_in: true,
-            displayed_form: "",
-            username: json.user.username,
-            message: "",
-          });
-        } else {
-          this.setState({message: "Invalid Credentials."});
-        }
-      });
+        .then(function (res) {
+          return res.json();
+        })
+        .then((user_info) => {
+          if ("token" in user_info) {
+            localStorage.setItem("token", user_info.token);
+            localStorage.setItem("username", user_info.user.username);
+            this.setState({
+              logged_in: true,
+              displayed_form: "",
+              username: user_info.user.username,
+              message: "",
+            });
+          } else {
+            // Case wrong username/password.
+            this.setState({message: "Invalid Credentials."});
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // POST request to UserList view => returns User's serialized data and token
   handleSignup = (e, data) => {
     e.preventDefault();
-    fetch("http://localhost:8000/cures/users/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        localStorage.setItem("token", json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: "",
-          username: json.username,
+    try {
+      fetch("http://localhost:8000/cures/signup/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((user_info) => {
+          if ("token" in user_info) {
+            localStorage.setItem("token", user_info.token);
+            localStorage.setItem("username", user_info.user.username);
+            this.setState({
+              logged_in: true,
+              displayed_form: "",
+              username: user_info.user.username,
+              message: "",
+            });
+          } else {
+            // Case Username already exists.
+            const message = user_info.username;
+            this.setState({message: message});
+          }
         });
-      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Logging out: delete token from local storage.
   handleLogout = () => {
     localStorage.removeItem("token");
-    this.setState({logged_in: false, username: ""});
+    localStorage.removeItem("username");
+    this.setState({logged_in: false, username: null});
   };
 
   displayForm = (form) => {
-    this.setState({
-      displayed_form: form,
-    });
+    this.setState({displayed_form: form});
   };
 
   render() {
@@ -97,7 +114,9 @@ class Register extends Component {
         form = <LoginForm handleLogin={this.handleLogin} message={this.state.message} />;
         break;
       case "signup":
-        form = <SignupForm handleSignup={this.handleSignup} />;
+        form = (
+          <SignupForm handleSignup={this.handleSignup} message={this.state.message} />
+        );
         break;
       default:
         form = null;

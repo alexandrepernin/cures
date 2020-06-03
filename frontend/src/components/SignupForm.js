@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 //TO-DO: ask for more information when signing up.
 class SignupForm extends React.Component {
   state = {
-    username: null,
-    password: null,
+    username: "",
+    password: "",
   };
 
   handleChange = (e) => {
@@ -20,7 +20,7 @@ class SignupForm extends React.Component {
       <div>
         <h4>Sign Up</h4>
         <form onSubmit={(e) => this.props.handleSignup(e, this.state)}>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -44,6 +44,9 @@ class SignupForm extends React.Component {
             <small className="form-text text-muted">
               We'll never share your password with anyone else.
             </small>
+          </div>
+          <div>
+            <p>{this.props.message}</p>
           </div>
           <button type="submit" className="btn btn-outline-info">
             Sign Up
