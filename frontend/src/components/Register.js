@@ -17,15 +17,21 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch("http://localhost:8000/cures/current_user/", {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          this.setState({username: json.username});
-        });
+      try {
+        fetch("http://localhost:8000/cures/current_user/", {
+          headers: {
+            Authorization: `JWT ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            this.setState({username: json.username});
+          });
+      }
+      catch(error) {
+        console.log(error);
+      }
+
     }
   }
 
