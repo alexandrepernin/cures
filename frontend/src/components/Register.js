@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Nav from "./Nav";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import "./Register.css";
 
 class Register extends Component {
   constructor(props) {
@@ -103,15 +104,7 @@ class Register extends Component {
     }
 
     return (
-      <div
-        className="App"
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "30%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
+      <div className="register-wrapper">
         <h3>
           {this.state.logged_in ? `Hello, ${this.state.username}` : "Please Sign In"}
         </h3>
