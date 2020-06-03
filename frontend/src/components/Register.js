@@ -36,15 +36,14 @@ class Register extends Component {
   }
 
   // POST request to obtain_jwt_token view.
-  handleLogin = (e, data) => {
-    e.preventDefault();
+  handleLogin = (credentials) => {
     try {
       fetch("http://localhost:8000/token-auth/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(credentials),
       })
         .then(function (res) {
           return res.json();
@@ -70,25 +69,24 @@ class Register extends Component {
   };
 
   // POST request to UserList view => returns User's serialized data and token
-  handleSignup = (e, data) => {
-    e.preventDefault();
+  handleSignup = (credentials) => {
     try {
       fetch("http://localhost:8000/cures/signup/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(credentials),
       })
         .then((res) => res.json())
         .then((user_info) => {
           if ("token" in user_info) {
             localStorage.setItem("token", user_info.token);
-            localStorage.setItem("username", user_info.user.username);
+            localStorage.setItem("username", user_info.username);
             this.setState({
               logged_in: true,
               displayed_form: "",
-              username: user_info.user.username,
+              username: user_info.username,
               message: "",
             });
           } else {
