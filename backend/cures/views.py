@@ -15,9 +15,7 @@ from .models import Cure
 # Method 2: Class-based Views
 # Method 3: Viewsets (sligthly more confusing)
 
-@api_view(['GET']) #Just to specify that this view only responds to GET requests.
-# Function based view. For SIGN IN. Calls the UserSerializer that just sends back username
-# If React forgets its state (e.g. reload) => checks if there is a token in local storage => if yes => calls the current_user method.
+@api_view(['GET'])
 def current_user(request):
     """
     Determine the current user by their token, and return their data
@@ -49,7 +47,6 @@ class UserList(APIView):
 @api_view(['GET'])
 @authentication_classes([])
 @permission_classes([])
-# Function based view
 def cures_list(request):
     try:
         name = request.GET['name']

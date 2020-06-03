@@ -8,16 +8,13 @@ class Register extends Component {
     super(props);
     this.state = {
       displayed_form: null,
-      //if token in local storage then True else False
       logged_in: localStorage.getItem("token") ? true : false,
       username: null,
       message: null,
     };
   }
 
-  // LIFE-CYCLE METHOD: Executed once elements in return passed to DOM
   componentDidMount() {
-    // If token => hit endpoint for login backend logic with token as data
     if (this.state.logged_in) {
       fetch("http://localhost:8000/cures/current_user/", {
         headers: {
@@ -26,13 +23,12 @@ class Register extends Component {
       })
         .then((res) => res.json())
         .then((json) => {
-          // Gets the username back and use setState to merge username with existing state
           this.setState({username: json.username});
         });
     }
   }
 
-  // POST request to obtain_jwt_token view. As default response payload handler changed, get the user's serialized data.
+  // POST request to obtain_jwt_token view.
   handleLogin = (e, data) => {
     e.preventDefault();
     fetch("http://localhost:8000/token-auth/", {
@@ -81,13 +77,12 @@ class Register extends Component {
       });
   };
 
-  // Deletes token from local storage.
+  // Logging out: delete token from local storage.
   handleLogout = () => {
     localStorage.removeItem("token");
     this.setState({logged_in: false, username: ""});
   };
 
-  // Handles UI: passed to Nav Bar
   displayForm = (form) => {
     this.setState({
       displayed_form: form,

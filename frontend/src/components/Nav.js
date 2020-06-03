@@ -2,10 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-// Here function based React component
-// Props: provided by the parent element. 2 versions of the nav bar. One when logged in, one when logged out.
 function Nav(props) {
-  // JSX syntax to define HTML element
   const logged_out_nav = (
     <div>
       <button
@@ -39,7 +36,6 @@ function Nav(props) {
       </div>
     </div>
   );
-  // If props.logged_in==True => return logged_in_nav else logged_out_nav
   return <div>{props.logged_in ? logged_in_nav : logged_out_nav}</div>;
 }
 

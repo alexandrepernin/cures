@@ -1,10 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-//Login form = React Component = Pretty much like SignupForm but will be different in the future to ask for more info
-// Like Views in Django => Component can be Function based or Class Based!
 class LoginForm extends React.Component {
-  // State: Initially=empty object (key-value pair)
   state = {
     username: null,
     password: null,
@@ -19,8 +16,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      // LOGIN FORM
-      // When submitted, calls handleLogin passed in by the parent component (App)
+      // When submitted, calls handleLogin passed in by parent component (App)
       <div>
         <h4>Sign In</h4>
         <form onSubmit={(e) => this.props.handleLogin(e, this.state)}>

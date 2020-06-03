@@ -10,15 +10,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username',)
 
-#For SIGN UP
+# For SIGN UP
 class UserSerializerWithToken(serializers.ModelSerializer):
 
-    #The user class doesn't have a built in token field => create our own custom field for the serializer
-    #=> a User instance does NOT have a token attribute. only the associated serializer does.
+    # The user class doesn't have a built in token field => create our own custom field for the serializer
+    # Consequence: User instance does NOT have a token attribute. only the associated serializer does.
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
 
-    #Method to handle the creation of a new token. Using the default setting from the JWT package
+    # Method to handle the creation of a new token. Using the default setting from the JWT package
     def get_token(self, obj):
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
         jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -31,7 +31,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
         if password is not None:
-            #set_password => to hash the password provided by the user.
+            # set_password => to hash the password provided by the user.
             instance.set_password(password)
         instance.save()
         return instance
@@ -44,7 +44,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 class CureSerializer(serializers.ModelSerializer):
 
     class Meta:
-        #Indicate which model the serializer will be representing
+        # Indicate which model the serializer will be representing
         model = Cure
-        #Indicate which field from that model we want the serializer to include
+        # Indicate which field from that model we want the serializer to include
         fields = ('pk', 'name', 'validated')

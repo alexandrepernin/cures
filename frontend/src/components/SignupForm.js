@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+//TO-DO: ask for more information when signing up.
 class SignupForm extends React.Component {
   state = {
     username: null,
@@ -15,7 +16,6 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      // SIGNUP FORM
       // When submitted, calls handleSignup passed in by the parent component (App)
       <div>
         <h4>Sign Up</h4>

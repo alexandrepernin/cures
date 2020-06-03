@@ -1,6 +1,6 @@
 from cures.serializers import UserSerializer
 
-# We define a new JMT reponse payload handler to be able to send back more than just the token with the response.
+# Define a new JMT reponse payload handler to be able to send back more than just the token with the response.
 def my_jwt_response_handler(token, user=None, request=None):
     return {
         'token': token,
