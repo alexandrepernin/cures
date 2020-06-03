@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Col, Container, Row} from "reactstrap";
 import CuresList from "./CuresList";
 import axios from "axios";
-import {API_URL} from "../constants";
 
 class Home extends Component {
   state = {
@@ -14,7 +13,8 @@ class Home extends Component {
   }
 
   getCures = () => {
-    axios.get(API_URL).then((res) => this.setState({cures: res.data}));
+    const path = process.env.REACT_APP_BACKEND_URL.concat("/api/cures/")
+    axios.get(path).then((res) => this.setState({cures: res.data}));
   };
 
   resetState = () => {

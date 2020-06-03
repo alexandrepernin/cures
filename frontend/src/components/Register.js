@@ -18,7 +18,8 @@ class Register extends Component {
   componentDidMount() {
     if (this.state.logged_in) {
       try {
-        fetch("http://localhost:8000/cures/current_user/", {
+        const path = process.env.REACT_APP_BACKEND_URL.concat("/cures/current_user/");
+        fetch(path, {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
           },
@@ -38,7 +39,8 @@ class Register extends Component {
   // POST request to obtain_jwt_token view.
   handleLogin = (credentials) => {
     try {
-      fetch("http://localhost:8000/token-auth/", {
+      const path = process.env.REACT_APP_BACKEND_URL.concat("/token-auth/");
+      fetch(path, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +73,8 @@ class Register extends Component {
   // POST request to UserList view => returns User's serialized data and token
   handleSignup = (credentials) => {
     try {
-      fetch("http://localhost:8000/cures/signup/", {
+      const path = process.env.REACT_APP_BACKEND_URL.concat("/cures/signup/");
+      fetch(path, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
