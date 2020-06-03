@@ -2,17 +2,19 @@ import React, {Component} from "react";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import "./App.css";
-import {BrowserRouter as Router, Route, Switch, withRouter} from "react-router-dom";
+import { BrowserRouter, Switch } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={withRouter(Home)} />
-          <Route exact path="/login" component={withRouter(Register)} />
+          <PublicRoute restricted={true} component={Register} path="/login" exact />
+          <PrivateRoute component={Home} path="/" />
         </Switch>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

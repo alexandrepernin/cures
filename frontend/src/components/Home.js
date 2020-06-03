@@ -23,13 +23,16 @@ class Home extends Component {
 
   render() {
     return (
-      <Container style={{marginTop: "20px"}}>
-        <Row>
-          <Col>
-            <CuresList cures={this.state.cures} />
-          </Col>
-        </Row>
-      </Container>
+      <div>
+          <Container style={{marginTop: "20px"}}>
+              <Row>
+                <Col>
+                  <CuresList cures={this.state.cures} />
+                </Col>
+              </Row>
+          </Container>
+      </div>
+
     );
   }
 }
