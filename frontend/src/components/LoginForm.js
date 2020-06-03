@@ -14,17 +14,13 @@ class LoginForm extends React.Component {
   handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState((prevstate) => {
-      const newState = {...prevstate};
-      newState[name] = value;
-      return newState;
-    });
+    this.setState({[name]: value});
   };
 
   render() {
     return (
       // LOGIN FORM
-      // When submitted, calls handle_login passed in by the parent component (App)
+      // When submitted, calls handleLogin passed in by the parent component (App)
       <div>
         <h4>Sign In</h4>
         <form onSubmit={(e) => this.props.handleLogin(e, this.state)}>

@@ -10,17 +10,13 @@ class SignupForm extends React.Component {
   handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState((prevstate) => {
-      const newState = {...prevstate};
-      newState[name] = value;
-      return newState;
-    });
+    this.setState({[name]: value});
   };
 
   render() {
     return (
       // SIGNUP FORM
-      // When submitted, calls handle_signup passed in by the parent component (App)
+      // When submitted, calls handleSignup passed in by the parent component (App)
       <div>
         <h4>Sign Up</h4>
         <form onSubmit={(e) => this.props.handleSignup(e, this.state)}>
