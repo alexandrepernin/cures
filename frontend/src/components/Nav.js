@@ -36,7 +36,7 @@ function Nav(props) {
       </div>
     </div>
   );
-  return <div>{props.logged_in ? logged_in_nav : logged_out_nav}</div>;
+  return (props.logged_in ? logged_in_nav : logged_out_nav);
 }
 
 export default Nav;
