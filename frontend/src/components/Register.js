@@ -7,11 +7,11 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: "",
+      displayed_form: null,
       //if token in local storage then True else False
       logged_in: localStorage.getItem("token") ? true : false,
-      username: "",
-      message: "",
+      username: null,
+      message: null,
     };
   }
 

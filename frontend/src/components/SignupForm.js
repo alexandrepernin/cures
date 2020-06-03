@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 class SignupForm extends React.Component {
   state = {
-    username: "",
-    password: "",
+    username: null,
+    password: null,
   };
 
   handleChange = (e) => {

@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 class LoginForm extends React.Component {
   // State: Initially=empty object (key-value pair)
   state = {
-    username: "",
-    password: "",
+    username: null,
+    password: null,
   };
 
   // Handles when user types something into the form.
