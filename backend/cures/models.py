@@ -4,22 +4,25 @@ class Tag(models.Model):
     name = models.CharField(default="Tag Name", max_length=64)
 
     def __str__(self):
-        return f"Tag #{self.id}: {self.name}"
+        return f"#{self.name}"
 
 class BodyPart(models.Model):
     name = models.CharField(default="Name", max_length=64)
     precision = models.IntegerField(default=0, choices=[(0, 'General'), (1,'Precise')])
 
     def __str__(self):
-        return f"Body Part ({self.precision}) #{self.id}: {self.name}"
+        if self.precision==0:
+            return f"General body part: {self.name}"
+        else:
+            return f"Precise body part: {self.name}"
 
 class Ingredient(models.Model):
     name = models.CharField(default="ingredient", max_length=64)
-    quantity = models.IntegerField(default=0)
-    unit = models.CharField(default="ml", max_length=64)
+    #quantity = models.IntegerField(default=0)
+    #unit = models.CharField(default="ml", max_length=64)
 
     def __str__(self):
-        return f"{self.name}: {self.quantity} {self.unit}"
+        return f"{self.name}"
 
 class RecipeStep(models.Model):
     description = models.TextField(default="description")
