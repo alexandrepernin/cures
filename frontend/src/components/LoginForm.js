@@ -19,8 +19,12 @@ class LoginForm extends React.Component {
       // When submitted, calls handleLogin passed in by parent component (App)
       <div>
         <h4>Sign In</h4>
-        <form onSubmit={(e) => {e.preventDefault();
-                                this.props.handleLogin(this.state);}}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            this.props.handleLogin(this.state);
+          }}
+        >
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input

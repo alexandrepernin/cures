@@ -2,41 +2,50 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-function Nav(props) {
-  const logged_out_nav = (
-    <div>
-      <p>
-        {" "}
-        Already have an account?{" "}
-        <a href="#" onClick={() => props.displayForm("login")}>
-          Sign In
-        </a>{" "}
-      </p>
-      <p>
-        {" "}
-        Don't have an account?{" "}
-        <a href="#" onClick={() => props.displayForm("signup")}>
-          Create one
-        </a>{" "}
-      </p>
-    </div>
-  );
+class Nav extends React.Component {
+  render() {
+    const logged_out_nav = (
+      <div>
+        {this.props.displayed_form == "signup" ? (
+          <p>
+            {" "}
+            Already have an account?{" "}
+            <a href="#" onClick={() => this.props.displayForm("login")}>
+              Sign In
+            </a>{" "}
+          </p>
+        ) : (
+          <p>
+            {" "}
+            Don't have an account?{" "}
+            <a href="#" onClick={() => this.props.displayForm("signup")}>
+              Create one
+            </a>{" "}
+          </p>
+        )}
+      </div>
+    );
 
-  const logged_in_nav = (
-    <div>
+    const logged_in_nav = (
       <div>
-        <Link className="btn btn-warning" to="/">
-          Find some cures!
-        </Link>
+        <div>
+          <Link className="btn btn-warning" to="/">
+            Find some cures!
+          </Link>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={this.props.handleLogout}
+          >
+            Log Out
+          </button>
+        </div>
       </div>
-      <div>
-        <button type="button" className="btn btn-danger" onClick={props.handleLogout}>
-          Log Out
-        </button>
-      </div>
-    </div>
-  );
-  return props.logged_in ? logged_in_nav : logged_out_nav;
+    );
+    return this.props.logged_in ? logged_in_nav : logged_out_nav;
+  }
 }
 
 export default Nav;

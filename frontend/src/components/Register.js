@@ -30,11 +30,9 @@ class Register extends Component {
           .then((json) => {
             this.setState({username: json.username});
           });
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error);
       }
-
     }
   }
 
@@ -64,10 +62,10 @@ class Register extends Component {
         console.log(user_info);
         this.setState({message: "Invalid Credentials."});
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
-    };
+  }
 
   // POST request to UserList view => returns User's serialized data and token
   async handleSignup(credentials) {
@@ -81,24 +79,24 @@ class Register extends Component {
         body: JSON.stringify(credentials),
       });
       const user_info = await response.json();
-          if ("token" in user_info) {
-            localStorage.setItem("token", user_info.token);
-            localStorage.setItem("username", user_info.username);
-            this.setState({
-              logged_in: true,
-              displayed_form: null,
-              username: user_info.username,
-              message: null,
-            });
-          } else {
-            // Case Username already exists.
-            const message = user_info.username;
-            this.setState({message: message});
-          }
-        } catch (error) {
+      if ("token" in user_info) {
+        localStorage.setItem("token", user_info.token);
+        localStorage.setItem("username", user_info.username);
+        this.setState({
+          logged_in: true,
+          displayed_form: null,
+          username: user_info.username,
+          message: null,
+        });
+      } else {
+        // Case Username already exists.
+        const message = user_info.username;
+        this.setState({message: message});
+      }
+    } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   // Logging out: delete token from local storage.
   handleLogout = () => {
@@ -128,13 +126,12 @@ class Register extends Component {
 
     return (
       <div className="register-wrapper">
-        <h3>
-          {this.state.logged_in ? `Hello, ${this.state.username}` : ""}
-        </h3>
+        <h3>{this.state.logged_in ? `Hello, ${this.state.username}` : ""}</h3>
         {form}
         <Nav
           logged_in={this.state.logged_in}
           displayForm={this.displayForm}
+          displayed_form={this.state.displayed_form}
           handleLogout={this.handleLogout}
         />
       </div>
