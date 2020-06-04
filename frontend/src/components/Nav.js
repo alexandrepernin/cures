@@ -5,13 +5,13 @@ import {Link} from "react-router-dom";
 function Nav(props) {
   const logged_out_nav = (
     <div>
-      <button
-        type="button"
-        className="btn btn-outline-info"
-        onClick={() => props.displayForm("login")}
-      >
-        Sign In
-      </button>
+      <p>
+        {" "}
+        Already have an account?{" "}
+        <a href="#" onClick={() => props.displayForm("login")}>
+          Sign In
+        </a>{" "}
+      </p>
       <p>
         {" "}
         Don't have an account?{" "}

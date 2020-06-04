@@ -21,6 +21,12 @@ class Home extends Component {
     this.getCures();
   };
 
+  handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    window.location.reload();
+  };
+
   render() {
     return (
       <div>
@@ -30,7 +36,13 @@ class Home extends Component {
                   <CuresList cures={this.state.cures} />
                 </Col>
               </Row>
+              <Row>
+                <button type="button" className="btn btn-danger" onClick={this.handleLogout}>
+                  Log Out
+                </button>
+              </Row>
           </Container>
+
       </div>
 
     );

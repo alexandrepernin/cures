@@ -8,11 +8,13 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: null,
+      displayed_form: "login",
       logged_in: localStorage.getItem("token") ? true : false,
       username: null,
       message: null,
     };
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
   }
 
   componentDidMount() {
@@ -37,52 +39,48 @@ class Register extends Component {
   }
 
   // POST request to obtain_jwt_token view.
-  handleLogin = (credentials) => {
+  async handleLogin(credentials) {
     try {
       const path = process.env.REACT_APP_BACKEND_URL.concat("/token-auth/");
-      fetch(path, {
+      const res = await fetch(path, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
-      })
-        .then(function (res) {
-          return res.json();
-        })
-        .then((user_info) => {
-          if ("token" in user_info) {
-            localStorage.setItem("token", user_info.token);
-            localStorage.setItem("username", user_info.user.username);
-            this.setState({
-              logged_in: true,
-              displayed_form: null,
-              username: user_info.user.username,
-              message: null,
-            });
-          } else {
-            // Case wrong username/password.
-            this.setState({message: "Invalid Credentials."});
-          }
+      });
+      const user_info = await res.json();
+      if ("token" in user_info) {
+        localStorage.setItem("token", user_info.token);
+        localStorage.setItem("username", user_info.user.username);
+        this.setState({
+          logged_in: true,
+          displayed_form: null,
+          username: user_info.user.username,
+          message: null,
         });
-    } catch (error) {
+      } else {
+        // Case wrong username/password.
+        console.log(user_info);
+        this.setState({message: "Invalid Credentials."});
+      }
+    } catch(error) {
       console.log(error);
     }
-  };
+    };
 
   // POST request to UserList view => returns User's serialized data and token
-  handleSignup = (credentials) => {
+  async handleSignup(credentials) {
     try {
       const path = process.env.REACT_APP_BACKEND_URL.concat("/cures/signup/");
-      fetch(path, {
+      const response = await fetch(path, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
-      })
-        .then((res) => res.json())
-        .then((user_info) => {
+      });
+      const user_info = await response.json();
           if ("token" in user_info) {
             localStorage.setItem("token", user_info.token);
             localStorage.setItem("username", user_info.username);
@@ -97,8 +95,7 @@ class Register extends Component {
             const message = user_info.username;
             this.setState({message: message});
           }
-        });
-    } catch (error) {
+        } catch (error) {
       console.log(error);
     }
   };
@@ -132,14 +129,14 @@ class Register extends Component {
     return (
       <div className="register-wrapper">
         <h3>
-          {this.state.logged_in ? `Hello, ${this.state.username}` : "Please Sign In"}
+          {this.state.logged_in ? `Hello, ${this.state.username}` : ""}
         </h3>
+        {form}
         <Nav
           logged_in={this.state.logged_in}
           displayForm={this.displayForm}
           handleLogout={this.handleLogout}
         />
-        {form}
       </div>
     );
   }
