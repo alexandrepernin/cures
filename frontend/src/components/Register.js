@@ -8,10 +8,10 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: "",
+      displayed_form: null,
       logged_in: localStorage.getItem("token") ? true : false,
-      username: "",
-      message: "",
+      username: null,
+      message: null,
     };
   }
 
@@ -56,9 +56,9 @@ class Register extends Component {
             localStorage.setItem("username", user_info.user.username);
             this.setState({
               logged_in: true,
-              displayed_form: "",
+              displayed_form: null,
               username: user_info.user.username,
-              message: "",
+              message: null,
             });
           } else {
             // Case wrong username/password.
@@ -88,9 +88,9 @@ class Register extends Component {
             localStorage.setItem("username", user_info.username);
             this.setState({
               logged_in: true,
-              displayed_form: "",
+              displayed_form: null,
               username: user_info.username,
-              message: "",
+              message: null,
             });
           } else {
             // Case Username already exists.
