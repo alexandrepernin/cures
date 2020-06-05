@@ -102,7 +102,7 @@ class Register extends Component {
   handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    this.setState({logged_in: false, username: null});
+    this.setState({displayed_form: "login", logged_in: false, username: null});
   };
 
   displayForm = (form) => {
