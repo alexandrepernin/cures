@@ -44,7 +44,12 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 class CureSerializer(serializers.ModelSerializer):
 
     class Meta:
-        # Indicate which model the serializer will be representing
         model = Cure
-        # Indicate which field from that model we want the serializer to include
         fields = ('pk', 'name', 'validated')
+
+# SYMPTOMS
+class SymptomSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Symptom
+        fields = ('pk', 'name')

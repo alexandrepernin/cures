@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import PublicHome from "./components/PublicHome";
 import "./App.css";
 import {BrowserRouter, Switch} from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
@@ -12,6 +13,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <PublicRoute restricted={true} component={Register} path="/login" exact />
+          <PublicRoute restricted={false} component={PublicHome} path="/cures" exact />
           <PrivateRoute component={Home} path="/" />
         </Switch>
       </BrowserRouter>

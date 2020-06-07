@@ -7,7 +7,12 @@ from rest_framework import permissions, status
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from .serializers import *
-from .models import Cure
+from .models import *
+
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 # 3 methods to create views:
@@ -55,5 +60,26 @@ def cures_list(request):
     except:
         data = Cure.objects.all()
     finally:
+        data = data[:10]
         serializer = CureSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
+
+# SYMPTOMS
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
+def symptoms_list(request):
+    try:
+        search = request.data['search']
+        logger.error(f"Search requested with keyword: {search}")
+        data = Symptom.objects.filter(name__icontains=search)
+        logger.error(data)
+    except:
+        logger.error('Something went wrong!')
+    finally:
+        if data:
+            serializer = SymptomSerializer(data, context={'request': request}, many=True)
+            logger.error(serializer.data)
+            return Response(serializer.data)
+        else:
+            return Response({"message":"No Match"})

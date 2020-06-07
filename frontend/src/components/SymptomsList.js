@@ -1,27 +1,27 @@
 import React, {Component} from "react";
 import {Table} from "reactstrap";
 
-class CuresList extends Component {
+class SymptomsList extends Component {
   render() {
-    const cures = this.props.cures;
+    const symptoms = this.props.symptoms;
     return (
       <Table>
         <thead>
           <tr>
-            <th>First 10 cures: </th>
+            <th>Did you mean?</th>
           </tr>
         </thead>
         <tbody>
-          {!cures || cures.length <= 0 ? (
+          {!symptoms || symptoms.length <= 0 ? (
             <tr>
               <td colSpan="6" align="center">
-                <b>Ops, no cure here yet</b>
+                <b>No potential match</b>
               </td>
             </tr>
           ) : (
-            cures.map((cure) => (
-              <tr key={cure.pk}>
-                <td>{cure.name}</td>
+            symptoms.map((symptom) => (
+              <tr key={symptom.pk}>
+                <td>{symptom.name}</td>
               </tr>
             ))
           )}
@@ -31,4 +31,4 @@ class CuresList extends Component {
   }
 }
 
-export default CuresList;
+export default SymptomsList;
