@@ -1,33 +1,40 @@
 import React, {Component} from "react";
-import {Table} from "reactstrap";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 
 class SymptomsList extends Component {
   render() {
     const symptoms = this.props.symptoms;
     return (
-      <Table>
-        <thead>
-          <tr>
-            <th>Did you mean?</th>
-          </tr>
-        </thead>
-        <tbody>
-          {!symptoms || symptoms.length <= 0 ? (
-            <tr>
-              <td colSpan="6" align="center">
-                <b>No potential match</b>
-              </td>
-            </tr>
-          ) : (
-            symptoms.map((symptom) => (
-              <tr key={symptom.pk}>
-                <td>{symptom.name}</td>
-                <td>{symptom.cures}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+      <div>
+        {!symptoms || symptoms.length <= 0 ? (
+          <p>No potential match</p>
+        ) : (
+          symptoms.map((symptom) => (
+            <div>
+              <p>Did you mean?</p>
+              <Card style={{width: "45rem"}}>
+                <Card.Body>
+                  <Card.Title>{symptom.name}</Card.Title>
+                  <Card.Text>{symptom.tags}</Card.Text>
+                </Card.Body>
+              </Card>
+              <Card style={{width: "45rem"}}>
+                <Card.Header>Available cures:</Card.Header>
+                <ListGroup variant="flush">
+                  {symptom.cures.map((value, index) => {
+                    return (
+                      <ListGroup.Item>
+                        {index + 1}: {value}
+                      </ListGroup.Item>
+                    );
+                  })}
+                </ListGroup>
+              </Card>
+            </div>
+          ))
+        )}
+      </div>
     );
   }
 }
