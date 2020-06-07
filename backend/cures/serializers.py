@@ -49,7 +49,8 @@ class CureSerializer(serializers.ModelSerializer):
 
 # SYMPTOMS
 class SymptomSerializer(serializers.ModelSerializer):
+    cures = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Symptom
-        fields = ('pk', 'name')
+        fields = ('pk', 'name', 'cures')

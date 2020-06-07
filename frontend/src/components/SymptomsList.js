@@ -22,6 +22,7 @@ class SymptomsList extends Component {
             symptoms.map((symptom) => (
               <tr key={symptom.pk}>
                 <td>{symptom.name}</td>
+                <td>{symptom.cures}</td>
               </tr>
             ))
           )}
