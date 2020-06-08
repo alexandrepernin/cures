@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {LOGIN,SIGNUP} from "../utils";
+import {LOGIN, SIGNUP} from "../utils";
 
 class Nav extends React.Component {
   render() {

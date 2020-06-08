@@ -14,7 +14,7 @@ class Home extends Component {
   }
 
   getCures = () => {
-    const path = process.env.REACT_APP_BACKEND_URL.concat("/api/cures/");
+    const path = process.env.REACT_APP_BACKEND_URL.concat("/api/cures-list/");
     axios.get(path).then((res) => this.setState({cures: res.data}));
   };
 

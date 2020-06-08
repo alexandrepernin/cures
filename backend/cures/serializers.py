@@ -40,18 +40,45 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         model = User
         fields = ('token', 'username', 'password')
 
+# INGREDIENT
+class IngredientSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ingredient
+        fields = ('pk', 'name',)
+
+
+# RECIPE STEP
+class RecipeStepSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RecipeStep
+        fields = ('pk', 'description','step_number',)
+
+# RECIPE
+class RecipeSerializer(serializers.ModelSerializer):
+    ingredients = serializers.StringRelatedField(many=True)
+    steps = RecipeStepSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Recipe
+        fields = ('pk', 'name','ingredients','steps',)
+
 # CURES
 class CureSerializer(serializers.ModelSerializer):
+    recipes = RecipeSerializer(many=True, read_only=True)
 
     class Meta:
         model = Cure
-        fields = ('pk', 'name', 'validated')
+        fields = ('pk', 'name','recipes',)
 
 # SYMPTOMS
 class SymptomSerializer(serializers.ModelSerializer):
-    cures = serializers.StringRelatedField(many=True)
+    # Using CureSerializer to get both pk and name
+    cures = CureSerializer(many=True, read_only=True)
+    # StringRelatedField: to use the __str__ function for cure representation
     tags = serializers.StringRelatedField(many=True)
-    
+
     class Meta:
         model = Symptom
         fields = ('pk', 'name', 'cures', 'tags')

@@ -22,19 +22,16 @@ class Home extends Component {
       });
       const symptom_info = await res.json();
       //Case no match
-      if (symptom_info.message){
+      if (symptom_info.message) {
         console.log(symptom_info.message);
         this.setState({symptoms: []});
-      }
-      else {
+      } else {
         this.setState({symptoms: symptom_info});
         console.log(this.state.symptoms);
       }
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
     }
-
   }
 
   handleLogout = () => {

@@ -103,11 +103,11 @@ class Register extends Component {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     this.setState({displayed_form: LOGIN, logged_in: false, username: null});
-  }
+  };
 
   displayForm = (form) => {
     this.setState({displayed_form: form});
-  }
+  };
 
   render() {
     return (
@@ -117,7 +117,8 @@ class Register extends Component {
           displayed_form={this.state.displayed_form}
           handleLogin={this.handleLogin}
           handleSignup={this.handleSignup}
-          message={this.state.message}/>
+          message={this.state.message}
+        />
         <Nav
           logged_in={this.state.logged_in}
           displayForm={this.displayForm}

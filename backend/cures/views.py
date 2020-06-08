@@ -1,9 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework import permissions, status
-
+from rest_framework.decorators import api_view, authentication_classes, permission_classes, action
+from rest_framework import permissions, status, viewsets
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from .serializers import *
@@ -83,3 +82,19 @@ def symptoms_list(request):
             return Response(serializer.data)
         else:
             return Response({"message":"No Match"})
+
+
+class CureViewSet(viewsets.ViewSet):
+    """
+    A simple ViewSet for listing or retrieving cures.
+    """
+    serializer_class = CureSerializer
+    queryset = Cure.objects.all()
+    permission_classes = []
+
+    @action(detail=True, methods=['get'], permission_classes=[])
+    def details(self, request, pk=None):
+        cure = Cure.objects.filter(pk=pk).first()
+        logger.error(cure)
+        serializer = CureSerializer(cure)
+        return Response(serializer.data)

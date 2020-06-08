@@ -23,9 +23,10 @@ class SymptomsList extends Component {
                 <Card.Header>Available cures:</Card.Header>
                 <ListGroup variant="flush">
                   {symptom.cures.map((value, index) => {
+                    let link = "/cures/".concat(value.pk);
                     return (
-                      <ListGroup.Item>
-                        {index + 1}: {value}
+                      <ListGroup.Item action href={link}>
+                        {index + 1}: {value.name}
                       </ListGroup.Item>
                     );
                   })}
