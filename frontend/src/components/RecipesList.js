@@ -15,7 +15,19 @@ class RecipesList extends Component {
               <Card style={{width: "45rem"}}>
                 <Card.Body>
                   <Card.Title>{recipe.name}</Card.Title>
-                  <Card.Text>{recipe.ingredients}</Card.Text>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {recipe.ingredients}
+                  </Card.Subtitle>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item disabled>Préparation: </ListGroup.Item>
+                    {recipe.steps.map((value, index) => {
+                      return (
+                        <ListGroup.Item key={index}>
+                          {index + 1}: {value.description}
+                        </ListGroup.Item>
+                      );
+                    })}
+                  </ListGroup>
                 </Card.Body>
               </Card>
             </div>

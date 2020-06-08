@@ -10,8 +10,8 @@ class SymptomsList extends Component {
         {!symptoms || symptoms.length <= 0 ? (
           <p>No potential match</p>
         ) : (
-          symptoms.map((symptom) => (
-            <div>
+          symptoms.map((symptom, index) => (
+            <div key={index}>
               <p>Did you mean?</p>
               <Card style={{width: "45rem"}}>
                 <Card.Body>
@@ -25,7 +25,7 @@ class SymptomsList extends Component {
                   {symptom.cures.map((value, index) => {
                     let link = "/cures/".concat(value.pk);
                     return (
-                      <ListGroup.Item action href={link}>
+                      <ListGroup.Item action href={link} key={index}>
                         {index + 1}: {value.name}
                       </ListGroup.Item>
                     );
