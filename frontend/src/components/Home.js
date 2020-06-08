@@ -15,15 +15,21 @@ class Home extends Component {
   async handleSearch(symptom) {
     try {
       const path = process.env.REACT_APP_BACKEND_URL.concat("/api/symptoms/");
-      console.log(JSON.stringify(symptom));
       const res = await fetch(path, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(symptom),
       });
       const symptom_info = await res.json();
-      this.setState({symptoms: symptom_info});
-      console.log(this.state.symptoms);
+      //Case no match
+      if (symptom_info.message){
+        console.log(symptom_info.message);
+        this.setState({symptoms: []});
+      }
+      else {
+        this.setState({symptoms: symptom_info});
+        console.log(this.state.symptoms);
+      }
     }
     catch(error){
       console.log(error);
