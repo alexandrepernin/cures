@@ -13,16 +13,22 @@ class Home extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
   async handleSearch(symptom) {
-    const path = process.env.REACT_APP_BACKEND_URL.concat("/api/symptoms/");
-    console.log(JSON.stringify(symptom));
-    const res = await fetch(path, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(symptom),
-    });
-    const symptom_info = await res.json();
-    this.setState({symptoms: symptom_info});
-    console.log(this.state.symptoms);
+    try {
+      const path = process.env.REACT_APP_BACKEND_URL.concat("/api/symptoms/");
+      console.log(JSON.stringify(symptom));
+      const res = await fetch(path, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(symptom),
+      });
+      const symptom_info = await res.json();
+      this.setState({symptoms: symptom_info});
+      console.log(this.state.symptoms);
+    }
+    catch(error){
+      console.log(error);
+    }
+
   }
 
   handleLogout = () => {

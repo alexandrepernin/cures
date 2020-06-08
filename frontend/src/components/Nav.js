@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {LOGIN,SIGNUP} from "../utils";
 
 class Nav extends React.Component {
   render() {
     const logged_out_nav = (
       <div>
-        {this.props.displayed_form == "signup" ? (
+        {this.props.displayed_form === SIGNUP ? (
           <p>
             {" "}
             Already have an account?{" "}
-            <a href="#" onClick={() => this.props.displayForm("login")}>
+            <a href="#" onClick={() => this.props.displayForm(LOGIN)}>
               Sign In
             </a>{" "}
           </p>
@@ -18,7 +19,7 @@ class Nav extends React.Component {
           <p>
             {" "}
             Don't have an account?{" "}
-            <a href="#" onClick={() => this.props.displayForm("signup")}>
+            <a href="#" onClick={() => this.props.displayForm(SIGNUP)}>
               Create one
             </a>{" "}
           </p>
