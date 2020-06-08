@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
+import RecipesList from "./RecipesList";
+import {Col, Row} from "reactstrap";
+import "./Register.css";
 
 class Cure extends Component {
   constructor(props) {
@@ -35,8 +38,12 @@ class Cure extends Component {
 
   render() {
     return (
-      <div>
-        <p>{this.state.name}</p>
+      <div className="register-wrapper">
+        <Row>
+          <Col>
+            <RecipesList recipes={this.state.data} />
+          </Col>
+        </Row>
       </div>
     );
   }
