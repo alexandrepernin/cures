@@ -4,6 +4,7 @@ import SymptomsList from "./SymptomsList";
 import Search from "./Search";
 import "./Register.css";
 import {withRouter} from "react-router-dom";
+import {execFetch} from "../utils";
 
 class Home extends Component {
   constructor(props) {
@@ -16,12 +17,9 @@ class Home extends Component {
   async handleSearch(symptom) {
     try {
       const path = `${process.env.REACT_APP_BACKEND_URL}/api/symptoms/`;
-      const res = await fetch(path, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(symptom),
-      });
-      const symptom_info = await res.json();
+      const method = "POST";
+      const body = JSON.stringify(symptom);
+      const symptom_info = await execFetch(path,method,body);
       //Case no match
       if (symptom_info.message) {
         this.setState({symptoms: []});

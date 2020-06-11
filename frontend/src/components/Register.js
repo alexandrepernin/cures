@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import DisplayedForm from "./DisplayedForm";
 import "./Register.css";
 import {LOGIN} from "../utils";
+import {execFetch} from "../utils";
 
 class Register extends Component {
   constructor(props) {
@@ -40,14 +41,9 @@ class Register extends Component {
   async handleLogin(credentials) {
     try {
       const path = `${process.env.REACT_APP_BACKEND_URL}/token-auth/`;
-      const res = await fetch(path, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-      const user_info = await res.json();
+      const method = "POST";
+      const body = JSON.stringify(credentials);
+      const user_info = await execFetch(path,method,body);
       if ("token" in user_info) {
         localStorage.setItem("token", user_info.token);
         localStorage.setItem("username", user_info.user.username);
@@ -71,14 +67,9 @@ class Register extends Component {
   async handleSignup(credentials) {
     try {
       const path = `${process.env.REACT_APP_BACKEND_URL}/cures/signup/`;
-      const response = await fetch(path, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-      const user_info = await response.json();
+      const method = "POST";
+      const body = JSON.stringify(credentials);
+      const user_info = await execFetch(path,method,body);
       if ("token" in user_info) {
         localStorage.setItem("token", user_info.token);
         localStorage.setItem("username", user_info.username);

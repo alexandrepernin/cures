@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import RecipesList from "./RecipesList";
 import {Col, Row} from "reactstrap";
 import "./Register.css";
+import {execFetch} from "../utils";
 
 class Cure extends Component {
   constructor(props) {
@@ -18,11 +19,8 @@ class Cure extends Component {
 
   async handleDetail(id) {
     const path = `${process.env.REACT_APP_BACKEND_URL}/api/cures/${id}/details/`;
-    const res = await fetch(path, {
-      method: "GET",
-      headers: {"Content-Type": "application/json"},
-    });
-    const cure_info = await res.json();
+    const method = "GET";
+    const cure_info = await execFetch(path, method, null);
     this.setState({data: cure_info.recipes, name: cure_info.name});
   }
 
