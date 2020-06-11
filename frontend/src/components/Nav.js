@@ -1,5 +1,6 @@
 import React from "react";
 import {LOGIN, SIGNUP} from "../utils";
+import {BrowserRouter, Link} from "react-router-dom";
 
 class Nav extends React.Component {
   render() {
@@ -7,27 +8,29 @@ class Nav extends React.Component {
       <div>
         {this.props.displayed_form === SIGNUP ? (
           <p>
-            {" "}
-            Already have an account?{" "}
-            <a
-              href="#"
-              onClick={() => this.props.displayForm(LOGIN)}
-              data-testid="signin"
-            >
-              Sign In
-            </a>{" "}
+            Already have an account?
+            <BrowserRouter>
+              <Link
+                to="/login"
+                onClick={() => this.props.displayForm(LOGIN)}
+                data-testid="signin"
+              >
+                Sign In
+              </Link>
+            </BrowserRouter>
           </p>
         ) : (
           <p>
-            {" "}
-            Don't have an account?{" "}
-            <a
-              href="#"
-              onClick={() => this.props.displayForm(SIGNUP)}
-              data-testid="signup"
-            >
-              Create one
-            </a>{" "}
+            Don't have an account?
+            <BrowserRouter>
+              <Link
+                to="/login"
+                onClick={() => this.props.displayForm(SIGNUP)}
+                data-testid="signup"
+              >
+                Create one
+              </Link>
+            </BrowserRouter>
           </p>
         )}
       </div>

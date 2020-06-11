@@ -59,6 +59,7 @@ class Register extends Component {
         });
       } else {
         // Case wrong username/password.
+
         this.setState({message: "Invalid Credentials."});
       }
     } catch (error) {

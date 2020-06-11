@@ -4,7 +4,7 @@ import CuresList from "./CuresList";
 import axios from "axios";
 import "./Register.css";
 
-class Home extends Component {
+class PublicHome extends Component {
   state = {
     cures: [],
   };
@@ -22,12 +22,6 @@ class Home extends Component {
     this.getCures();
   };
 
-  handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    window.location.reload();
-  };
-
   render() {
     return (
       <div className="register-wrapper">
@@ -41,4 +35,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default PublicHome;

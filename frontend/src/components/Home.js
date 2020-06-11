@@ -3,6 +3,7 @@ import {Col, Row} from "reactstrap";
 import SymptomsList from "./SymptomsList";
 import Search from "./Search";
 import "./Register.css";
+import {withRouter} from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class Home extends Component {
   handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    window.location.href = "/login";
+    this.props.history.push("/login");
   };
 
   render() {
@@ -59,4 +60,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
