@@ -1,50 +1,61 @@
 import React, {Component} from "react";
-import {Col, Container, Row} from "reactstrap";
-import CuresList from "./CuresList";
-import axios from "axios";
+import {Col, Row} from "reactstrap";
+import SymptomsList from "./SymptomsList";
+import Search from "./Search";
+import "./Register.css";
+import {withRouter} from "react-router-dom";
+import {execFetch} from "../utils";
 
 class Home extends Component {
-  state = {
-    cures: [],
-  };
-
-  componentDidMount() {
-    this.resetState();
+  constructor(props) {
+    super(props);
+    this.state = {
+      symptoms: [],
+    };
+    this.handleSearch = this.handleSearch.bind(this);
   }
-
-  getCures = () => {
-    const path = process.env.REACT_APP_BACKEND_URL.concat("/api/cures/");
-    axios.get(path).then((res) => this.setState({cures: res.data}));
-  };
-
-  resetState = () => {
-    this.getCures();
-  };
+  async handleSearch(symptom) {
+    try {
+      const path = `${process.env.REACT_APP_BACKEND_URL}/api/symptoms/`;
+      const method = "POST";
+      const body = JSON.stringify(symptom);
+      const symptom_info = await execFetch(path,method,body);
+      //Case no match
+      if (symptom_info.message) {
+        this.setState({symptoms: []});
+      } else {
+        this.setState({symptoms: symptom_info});
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    window.location.reload();
+    this.props.history.push("/login");
   };
 
   render() {
     return (
-      <div>
-        <Container style={{marginTop: "20px"}}>
-          <Row>
-            <Col>
-              <CuresList cures={this.state.cures} />
-            </Col>
-          </Row>
-          <Row>
-            <button type="button" className="btn btn-danger" onClick={this.handleLogout}>
-              Log Out
-            </button>
-          </Row>
-        </Container>
+      <div className="register-wrapper">
+        <Row>
+          <Search handleSearch={this.handleSearch} />
+        </Row>
+        <Row>
+          <Col>
+            <SymptomsList symptoms={this.state.symptoms} />
+          </Col>
+        </Row>
+        <Row>
+          <button type="button" className="btn btn-danger" onClick={this.handleLogout}>
+            Log Out
+          </button>
+        </Row>
       </div>
     );
   }
 }
 
-export default Home;
+export default withRouter(Home);

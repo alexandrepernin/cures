@@ -1,26 +1,36 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {LOGIN, SIGNUP} from "../utils";
+import {BrowserRouter, Link} from "react-router-dom";
 
 class Nav extends React.Component {
   render() {
     const logged_out_nav = (
       <div>
-        {this.props.displayed_form == "signup" ? (
+        {this.props.displayed_form === SIGNUP ? (
           <p>
-            {" "}
-            Already have an account?{" "}
-            <a href="#" onClick={() => this.props.displayForm("login")}>
-              Sign In
-            </a>{" "}
+            Already have an account?
+            <BrowserRouter>
+              <Link
+                to="/login"
+                onClick={() => this.props.displayForm(LOGIN)}
+                data-testid="signin"
+              >
+                Sign In
+              </Link>
+            </BrowserRouter>
           </p>
         ) : (
           <p>
-            {" "}
-            Don't have an account?{" "}
-            <a href="#" onClick={() => this.props.displayForm("signup")}>
-              Create one
-            </a>{" "}
+            Don't have an account?
+            <BrowserRouter>
+              <Link
+                to="/login"
+                onClick={() => this.props.displayForm(SIGNUP)}
+                data-testid="signup"
+              >
+                Create one
+              </Link>
+            </BrowserRouter>
           </p>
         )}
       </div>
@@ -28,11 +38,9 @@ class Nav extends React.Component {
 
     const logged_in_nav = (
       <div>
-        <div>
-          <Link className="btn btn-warning" to="/">
-            Find some cures!
-          </Link>
-        </div>
+        <a className="btn btn-warning" href="/" data-testid="cure">
+          Find some cures!
+        </a>
         <div>
           <button
             type="button"
@@ -49,9 +57,3 @@ class Nav extends React.Component {
 }
 
 export default Nav;
-
-Nav.propTypes = {
-  logged_in: PropTypes.bool.isRequired,
-  displayForm: PropTypes.func.isRequired,
-  handleLogout: PropTypes.func.isRequired,
-};

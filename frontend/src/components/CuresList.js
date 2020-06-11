@@ -8,7 +8,7 @@ class CuresList extends Component {
       <Table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>First 10 cures: </th>
           </tr>
         </thead>
         <tbody>

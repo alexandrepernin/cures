@@ -33,7 +33,7 @@ class Symptom(models.Model):
 class Cure(models.Model):
     name = models.CharField(default="name", max_length=64)
     validated = models.BooleanField(default=False)
-    symptom = models.ForeignKey(Symptom, on_delete=models.CASCADE, blank=True, null=True)
+    symptom = models.ForeignKey(Symptom, related_name='cures', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} ({self.symptom})"
@@ -41,7 +41,7 @@ class Cure(models.Model):
 class Recipe(models.Model):
     name = models.CharField(default="Recipe Name", max_length=64)
     ingredients = models.ManyToManyField(Ingredient, blank=True, related_name="recipes")
-    cure = models.ForeignKey(Cure, on_delete=models.CASCADE, blank=True, null=True)
+    cure = models.ForeignKey(Cure, related_name='recipes', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -49,7 +49,7 @@ class Recipe(models.Model):
 class RecipeStep(models.Model):
     description = models.TextField(default="description")
     step_number = models.IntegerField(default=1)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
+    recipe = models.ForeignKey(Recipe, related_name='steps', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         text = self.description[:25]

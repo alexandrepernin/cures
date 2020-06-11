@@ -1,0 +1,5 @@
+Django==2.1.5
+pandas
+djangorestframework==3.11.0
+django-cors-headers==3.3.0
+djangorestframework-jwt==1.11.0
