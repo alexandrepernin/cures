@@ -22,11 +22,11 @@ class SymptomsList extends Component {
               <Card style={{width: "45rem"}}>
                 <Card.Header>Available cures:</Card.Header>
                 <ListGroup variant="flush">
-                  {symptom.cures.map((value, index) => {
-                    let link = "/cures/".concat(value.pk);
+                  {symptom.cures.map((cure, index) => {
+                    let link = `/cures/${cure.pk}`;
                     return (
                       <ListGroup.Item action href={link} key={index}>
-                        {index + 1}: {value.name}
+                        {index + 1}: {cure.name}
                       </ListGroup.Item>
                     );
                   })}

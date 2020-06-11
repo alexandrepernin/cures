@@ -17,21 +17,17 @@ class Cure extends Component {
   }
 
   async handleDetail(id) {
-    const path = process.env.REACT_APP_BACKEND_URL.concat("/api/cures/")
-      .concat(id)
-      .concat("/details/");
+    const path = `${process.env.REACT_APP_BACKEND_URL}/api/cures/${id}/details/`;
     const res = await fetch(path, {
       method: "GET",
       headers: {"Content-Type": "application/json"},
     });
     const cure_info = await res.json();
     this.setState({data: cure_info.recipes, name: cure_info.name});
-    console.log(this.state.name);
-    console.log(this.state.data);
   }
 
   resetState = () => {
-    let id = this.props.match.params.id;
+    const id = this.props.match.params.id;
     this.handleDetail(id);
   };
 

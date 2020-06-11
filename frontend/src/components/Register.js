@@ -20,7 +20,7 @@ class Register extends Component {
   componentDidMount() {
     if (this.state.logged_in) {
       try {
-        const path = process.env.REACT_APP_BACKEND_URL.concat("/cures/current_user/");
+        const path = `${process.env.REACT_APP_BACKEND_URL}/cures/current_user/`;
         fetch(path, {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
@@ -39,7 +39,7 @@ class Register extends Component {
   // POST request to obtain_jwt_token view.
   async handleLogin(credentials) {
     try {
-      const path = process.env.REACT_APP_BACKEND_URL.concat("/token-auth/");
+      const path = `${process.env.REACT_APP_BACKEND_URL}/token-auth/`;
       const res = await fetch(path, {
         method: "POST",
         headers: {
@@ -59,7 +59,6 @@ class Register extends Component {
         });
       } else {
         // Case wrong username/password.
-        console.log(user_info);
         this.setState({message: "Invalid Credentials."});
       }
     } catch (error) {
@@ -70,7 +69,7 @@ class Register extends Component {
   // POST request to UserList view => returns User's serialized data and token
   async handleSignup(credentials) {
     try {
-      const path = process.env.REACT_APP_BACKEND_URL.concat("/cures/signup/");
+      const path = `${process.env.REACT_APP_BACKEND_URL}/cures/signup/`;
       const response = await fetch(path, {
         method: "POST",
         headers: {

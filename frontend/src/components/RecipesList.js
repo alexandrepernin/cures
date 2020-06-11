@@ -20,10 +20,10 @@ class RecipesList extends Component {
                   </Card.Subtitle>
                   <ListGroup variant="flush">
                     <ListGroup.Item disabled>Préparation: </ListGroup.Item>
-                    {recipe.steps.map((value, index) => {
+                    {recipe.steps.map((step, index) => {
                       return (
                         <ListGroup.Item key={index}>
-                          {index + 1}: {value.description}
+                          {index + 1}: {step.description}
                         </ListGroup.Item>
                       );
                     })}
