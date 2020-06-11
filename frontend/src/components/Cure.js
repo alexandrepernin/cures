@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import axios from "axios";
 import RecipesList from "./RecipesList";
 import {Col, Row} from "reactstrap";
 import "./Register.css";

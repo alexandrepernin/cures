@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {Link, BrowserRouter} from "react-router-dom";
 import {LOGIN, SIGNUP} from "../utils";
 
 class Nav extends React.Component {
@@ -11,7 +11,7 @@ class Nav extends React.Component {
           <p>
             {" "}
             Already have an account?{" "}
-            <a href="#" onClick={() => this.props.displayForm(LOGIN)}>
+            <a href="#" onClick={() => this.props.displayForm(LOGIN)} data-testid="signin">
               Sign In
             </a>{" "}
           </p>
@@ -19,7 +19,7 @@ class Nav extends React.Component {
           <p>
             {" "}
             Don't have an account?{" "}
-            <a href="#" onClick={() => this.props.displayForm(SIGNUP)}>
+            <a href="#" onClick={() => this.props.displayForm(SIGNUP)} data-testid="signup">
               Create one
             </a>{" "}
           </p>
@@ -30,9 +30,11 @@ class Nav extends React.Component {
     const logged_in_nav = (
       <div>
         <div>
-          <Link className="btn btn-warning" to="/">
+        <BrowserRouter>
+          <Link className="btn btn-warning" to="/" data-testid="cure">
             Find some cures!
           </Link>
+        </BrowserRouter>
         </div>
         <div>
           <button
@@ -50,9 +52,3 @@ class Nav extends React.Component {
 }
 
 export default Nav;
-
-Nav.propTypes = {
-  logged_in: PropTypes.bool.isRequired,
-  displayForm: PropTypes.func.isRequired,
-  handleLogout: PropTypes.func.isRequired,
-};
