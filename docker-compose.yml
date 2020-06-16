@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  django:
+    image: cure-back-image:1.0
+    container_name: cure-back-container
+    build: ./backend
+    command: ./entrypoint.sh
+    volumes:
+      - ./backend:/usr/src/app/backend
+    ports:
+      - "8000:8000"
+    stdin_open: true
+
+
+  frontend:
+    image: cure-front-image:1.0
+    container_name: cure-front-container
+    build: ./frontend
+    command: ["npm", "start"]
+    volumes:
+      - ./frontend:/usr/src/app/frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
