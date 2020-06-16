@@ -1,5 +1,6 @@
 # Base Image
 FROM python:3
+ENV PYTHONUNBUFFERED 1
 
 # Create working directory
 WORKDIR /usr/src/app
@@ -12,12 +13,6 @@ RUN pip install -r requirements.txt
 
 # Add the whole project to the working directory
 ADD . /usr/src/app
-
-EXPOSE 8080
-
-CMD [ "python", "manage.py", "migrate"]
-
-CMD [ "python", "manage.py", "runserver"]
 
 # Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
