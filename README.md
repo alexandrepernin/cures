@@ -7,8 +7,8 @@ This is a set up so that we can easily create apps that use Django on the backen
 1. `docker-compose build`
 1. `docker-compose up`
 1. There should now be two servers running:
-  - [http://127.0.0.1:5000](http://127.0.0.1:8000) is the Django app
-  - [http://127.0.0.1:3000](http://127.0.0.1:3000) is the React app
+  - [http://localhost:8000](http://localhost:8000) is the Django app
+  - [http://localhost:3000](http://localhost:3000) is the React app
 
 ## Using `docker-compose run` to issue one-off commands
 
